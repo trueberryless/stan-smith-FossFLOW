@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Isoflow } from 'fossflow';
+import { Trans, useTranslation } from 'react-i18next';
 import { flattenCollections } from '@isoflow/isopacks/dist/utils';
 import isoflowIsopack from '@isoflow/isopacks/dist/isoflow';
 import awsIsopack from '@isoflow/isopacks/dist/aws';
@@ -28,6 +29,8 @@ interface SavedDiagram {
 }
 
 function App() {
+  const { t, i18n } = useTranslation('translation', { keyPrefix: 'app' });
+
   const [diagrams, setDiagrams] = useState<SavedDiagram[]>([]);
   const [currentDiagram, setCurrentDiagram] = useState<SavedDiagram | null>(null);
   const [diagramName, setDiagramName] = useState('');
@@ -401,20 +404,20 @@ function App() {
   return (
     <div className="App">
       <div className="toolbar">
-        <button onClick={newDiagram}>New Diagram</button>
-        <button onClick={() => setShowSaveDialog(true)}>Save (Session Only)</button>
-        <button onClick={() => setShowLoadDialog(true)}>Load (Session Only)</button>
+        <button onClick={newDiagram}>{t("toolbar.newDiagram")}</button>
+        <button onClick={() => setShowSaveDialog(true)}>{t("toolbar.saveSessionOnly")}</button>
+        <button onClick={() => setShowLoadDialog(true)}>{t("toolbar.loadSessionOnly")}</button>
         <button 
           onClick={() => setShowImportDialog(true)}
           style={{ backgroundColor: '#28a745' }}
         >
-          📂 Import File
+          {t("toolbar.importFile")}
         </button>
         <button 
           onClick={() => setShowExportDialog(true)}
           style={{ backgroundColor: '#007bff' }}
         >
-          💾 Export File
+          {t("toolbar.exportFile")}
         </button>
         <button 
           onClick={() => {
@@ -428,15 +431,17 @@ function App() {
             opacity: currentDiagram && hasUnsavedChanges ? 1 : 0.5,
             cursor: currentDiagram && hasUnsavedChanges ? 'pointer' : 'not-allowed'
           }}
-          title="Save to current session only"
+          title={t("toolbar.saveToCurrentSessionOnly")}
         >
-          Quick Save (Session)
+          {t("toolbar.quickSaveSession")}
         </button>
         <span className="current-diagram">
-          {currentDiagram ? `Current: ${currentDiagram.name}` : diagramName || 'Untitled Diagram'}
-          {hasUnsavedChanges && <span style={{ color: '#ff9800', marginLeft: '10px' }}>• Modified</span>}
+          {currentDiagram 
+            ? t("toolbar.currentDiagram", { name: currentDiagram.name}) 
+            : t("toolbar.diagramName", { name: diagramName}) || t("toolbar.untitledDiagram")}
+          {hasUnsavedChanges && <span style={{ color: '#ff9800', marginLeft: '10px' }}>{t("toolbar.separatorModified")}</span>}
           <span style={{ fontSize: '12px', color: '#666', marginLeft: '10px' }}>
-            (Session storage only - export to save permanently)
+            {t("toolbar.sessionStorageOnly")}
           </span>
         </span>
       </div>
@@ -454,7 +459,7 @@ function App() {
       {showSaveDialog && (
         <div className="dialog-overlay">
           <div className="dialog">
-            <h2>Save Diagram (Current Session Only)</h2>
+            <h2>{t("saveDialog.saveDiagram")}</h2>
             <div style={{
               backgroundColor: '#fff3cd',
               border: '1px solid #ffeeba',
@@ -462,9 +467,11 @@ function App() {
               borderRadius: '4px',
               marginBottom: '20px'
             }}>
-              <strong>⚠️ Important:</strong> This save is temporary and will be lost when you close the browser.
-              <br />
-              Use <strong>Export File</strong> to permanently save your work.
+              <Trans
+                i18nKey="app.saveDialog.temporarySaveWarning"
+                values={{ warning: "⚠️ Important:", action: "Export File" }}
+                components={{ strong: <strong />, br: <br /> }}
+              />
             </div>
             <input
               type="text"
@@ -475,8 +482,8 @@ function App() {
               autoFocus
             />
             <div className="dialog-buttons">
-              <button onClick={saveDiagram}>Save</button>
-              <button onClick={() => setShowSaveDialog(false)}>Cancel</button>
+              <button onClick={saveDiagram}>{t("saveDialog.save")}</button>
+              <button onClick={() => setShowSaveDialog(false)}>{t("saveDialog.cancel")}</button>
             </div>
           </div>
         </div>

@@ -1,0 +1,24 @@
+{
+  "app": {
+    "toolbar": {
+      "newDiagram": "New Diagram",
+      "saveSessionOnly": "Save (Session Only)",
+      "loadSessionOnly": "Load (Session Only)",
+      "importFile": "📂 Import File",
+      "exportFile": "💾 Export File",
+      "saveToCurrentSessionOnly": "Save to current session only",
+      "quickSaveSession": "Quick Save (Session)",
+      "currentDiagram": "Current: {{name}}",
+      "diagramName": "{{name}}",
+      "untitledDiagram": "Untitled Diagram",
+      "separatorModified": "• Modified",
+      "sessionStorageOnly": "(Session storage only - export to save permanently)"
+    },
+    "saveDialog": {
+      "saveDiagram": "Save Diagram (Current Session Only)",
+      "temporarySaveWarning": "<strong>{{warning}}</strong> This save is temporary and will be lost when you close the browser.<br />Use <strong>{{action}}</strong> to permanently save your work.",
+      "save": "Save",
+      "cancel": "Cancel"
+    }
+  }
+}
