@@ -16,8 +16,31 @@
     },
     "saveDialog": {
       "saveDiagram": "Save Diagram (Current Session Only)",
-      "temporarySaveWarning": "<strong>{{warning}}</strong> This save is temporary and will be lost when you close the browser.<br />Use <strong>{{action}}</strong> to permanently save your work.",
+      "temporarySaveWarning": "<strong>⚠️ Important:</strong> This save is temporary and will be lost when you close the browser.<br />Use <strong>Export File</strong> to permanently save your work.",
       "save": "Save",
+      "cancel": "Cancel"
+    },
+    "loadDialog": {
+      "loadDiagram": "Load Diagram (Current Session Only)",
+      "temporarySaveWarning": "<strong>⚠️ Note:</strong> These saves are temporary. Export your diagrams to keep them permanently.",
+      "noSavedDiagrams": "No saved diagrams found in this session",
+      "diagramEntry": "<strong>{{name}}</strong><br /><small>Updated: {{date}}</small>",
+      "load": "Load",
+      "delete": "Delete",
+      "close": "Close"
+    },
+    "importDialog": {
+      "importDiagram": "Import Diagram",
+      "chooseJsonFileToImport": "Choose a JSON file to import",
+      "selectFile": "Select File",
+      "supportedFormat": "Supported format: .json files exported from Isoflow",
+      "cancel": "Cancel"
+    },
+    "exportDialog": {
+      "exportDiagram": "Export Diagram",
+      "recommendedNotice": "<strong>✅ Recommended:</strong> This is the best way to save your work permanently.",
+      "exportedJsonFiles": "Exported JSON files can be imported later or shared with others.",
+      "downlaodJson": "Download JSON",
       "cancel": "Cancel"
     }
   }

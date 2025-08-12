@@ -469,7 +469,6 @@ function App() {
             }}>
               <Trans
                 i18nKey="app.saveDialog.temporarySaveWarning"
-                values={{ warning: "⚠️ Important:", action: "Export File" }}
                 components={{ strong: <strong />, br: <br /> }}
               />
             </div>
@@ -493,7 +492,7 @@ function App() {
       {showLoadDialog && (
         <div className="dialog-overlay">
           <div className="dialog">
-            <h2>Load Diagram (Current Session Only)</h2>
+            <h2>{t("loadDialog.loadDiagram")}</h2>
             <div style={{
               backgroundColor: '#fff3cd',
               border: '1px solid #ffeeba',
@@ -501,29 +500,34 @@ function App() {
               borderRadius: '4px',
               marginBottom: '20px'
             }}>
-              <strong>⚠️ Note:</strong> These saves are temporary. Export your diagrams to keep them permanently.
+              <Trans
+                i18nKey="app.loadDialog.temporarySaveWarning"
+                components={{ strong: <strong /> }}
+              />
             </div>
             <div className="diagram-list">
               {diagrams.length === 0 ? (
-                <p>No saved diagrams found in this session</p>
+                <p>{t("loadDialog.noSavedDiagrams")}</p>
               ) : (
                 diagrams.map(diagram => (
                   <div key={diagram.id} className="diagram-item">
                     <div>
-                      <strong>{diagram.name}</strong>
-                      <br />
-                      <small>Updated: {new Date(diagram.updatedAt).toLocaleString()}</small>
+                      <Trans
+                        i18nKey="app.loadDialog.diagramEntry"
+                        values={{ name: diagram.name, date: new Date(diagram.updatedAt).toLocaleString() }}
+                        components={{ strong: <strong />, br: <br />, small: <small /> }}
+                      />
                     </div>
                     <div className="diagram-actions">
-                      <button onClick={() => loadDiagram(diagram)}>Load</button>
-                      <button onClick={() => deleteDiagram(diagram.id)}>Delete</button>
+                      <button onClick={() => loadDiagram(diagram)}>{t("loadDialog.load")}</button>
+                      <button onClick={() => deleteDiagram(diagram.id)}>{t("loadDialog.delete")}</button>
                     </div>
                   </div>
                 ))
               )}
             </div>
             <div className="dialog-buttons">
-              <button onClick={() => setShowLoadDialog(false)}>Close</button>
+              <button onClick={() => setShowLoadDialog(false)}>{t("loadDialog.close")}</button>
             </div>
           </div>
         </div>
@@ -542,7 +546,7 @@ function App() {
       {showImportDialog && (
         <div className="dialog-overlay">
           <div className="dialog">
-            <h2>Import Diagram</h2>
+            <h2>{t("importDialog.importDiagram")}</h2>
             <div style={{
               border: '2px dashed #ccc',
               borderRadius: '8px',
@@ -551,7 +555,7 @@ function App() {
               marginBottom: '20px',
               backgroundColor: '#f8f9fa'
             }}>
-              <p style={{ fontSize: '18px', marginBottom: '20px' }}>Choose a JSON file to import</p>
+              <p style={{ fontSize: '18px', marginBottom: '20px' }}>{t("importDialog.chooseJsonFileToImport")}</p>
               <button 
                 onClick={importDiagram}
                 style={{
@@ -564,14 +568,14 @@ function App() {
                   cursor: 'pointer'
                 }}
               >
-                Select File
+                {t("importDialog.selectFile")}
               </button>
               <p style={{ marginTop: '20px', color: '#666', fontSize: '14px' }}>
-                Supported format: .json files exported from Isoflow
+                {t("importDialog.supportedFormat")}
               </p>
             </div>
             <div className="dialog-buttons">
-              <button onClick={() => setShowImportDialog(false)}>Cancel</button>
+              <button onClick={() => setShowImportDialog(false)}>{t("importDialog.cancel")}</button>
             </div>
           </div>
         </div>
@@ -581,7 +585,7 @@ function App() {
       {showExportDialog && (
         <div className="dialog-overlay">
           <div className="dialog">
-            <h2>Export Diagram</h2>
+            <h2>{t("exportDialog.exportDiagram")}</h2>
             <div style={{
               backgroundColor: '#d4edda',
               border: '1px solid #c3e6cb',
@@ -590,15 +594,18 @@ function App() {
               marginBottom: '20px'
             }}>
               <p style={{ margin: '0 0 10px 0' }}>
-                <strong>✅ Recommended:</strong> This is the best way to save your work permanently.
+                <Trans
+                  i18nKey="app.exportDialog.recommendedNotice"
+                  components={{ strong: <strong /> }}
+                />
               </p>
               <p style={{ margin: 0, fontSize: '14px', color: '#155724' }}>
-                Exported JSON files can be imported later or shared with others.
+                {t("exportDialog.exportedJsonFiles")}
               </p>
             </div>
             <div className="dialog-buttons">
-              <button onClick={exportDiagram}>Download JSON</button>
-              <button onClick={() => setShowExportDialog(false)}>Cancel</button>
+              <button onClick={exportDiagram}>{t("exportDialog.downlaodJson")}</button>
+              <button onClick={() => setShowExportDialog(false)}>{t("exportDialog.cancel")}</button>
             </div>
           </div>
         </div>
